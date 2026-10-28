@@ -1,0 +1,1564 @@
+/* ====================================================================
+   Direction visuelle « Dossier de mission » — système de design (proposition)
+   Portée : tout est préfixé .dv pour ne pas toucher l'application existante.
+   ==================================================================== */
+
+.dv {
+  /* --- Couleurs : encre, papier, graphite, et trois couleurs de sens --- */
+  --dv-encre: #13203a;
+  --dv-encre-2: #1d2d4f;
+  --dv-encre-3: #2b3e68;
+  --dv-encre-trans: rgba(19, 32, 58, 0.08);
+  --dv-papier: #f7f5f0;
+  --dv-papier-2: #efebe2;
+  --dv-surface: #ffffff;
+  --dv-filet: #e6e1d6;
+  --dv-filet-fort: #cfc7b6;
+  --dv-texte: #1a1f2b;
+  --dv-texte-2: #4b5363;
+  --dv-texte-3: #7a8294;
+  --dv-texte-inverse: #f6f3ec;
+  /* cuivre : réservé à ce que l'outil propose (règles, suggestions) */
+  --dv-cuivre: #b5672a;
+  --dv-cuivre-fonce: #8f4f1e;
+  --dv-cuivre-clair: #f6e7da;
+  /* sauge : validé, positif, quick win */
+  --dv-sauge: #2f7a5b;
+  --dv-sauge-clair: #e1efe7;
+  /* garance : douleur, bloquant */
+  --dv-garance: #b2423e;
+  --dv-garance-clair: #f7e3e2;
+  /* cobalt : cible, modifié, à planifier */
+  --dv-cobalt: #2f5fa8;
+  --dv-cobalt-clair: #e3ebf8;
+  /* ocre : attention, à vérifier */
+  --dv-ocre: #b8891f;
+  --dv-ocre-clair: #f8efd4;
+
+  /* --- Typographie --- */
+  --dv-serif: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --dv-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --dv-t-11: 0.6875rem;
+  --dv-t-12: 0.78rem;
+  --dv-t-14: 0.875rem;
+  --dv-t-15: 0.95rem;
+  --dv-t-17: 1.0625rem;
+  --dv-t-20: 1.25rem;
+  --dv-t-26: 1.625rem;
+  --dv-t-34: 2.125rem;
+  --dv-t-48: 3rem;
+
+  /* --- Espacements (base 4) --- */
+  --dv-e-1: 4px;
+  --dv-e-2: 8px;
+  --dv-e-3: 12px;
+  --dv-e-4: 16px;
+  --dv-e-5: 20px;
+  --dv-e-6: 24px;
+  --dv-e-8: 32px;
+  --dv-e-10: 40px;
+  --dv-e-12: 48px;
+
+  /* --- Rayons, ombres, mouvement --- */
+  --dv-r-1: 6px;
+  --dv-r-2: 10px;
+  --dv-r-3: 16px;
+  --dv-ombre-1: 0 1px 0 rgba(19, 32, 58, 0.04), 0 1px 2px rgba(19, 32, 58, 0.06);
+  --dv-ombre-2: 0 2px 6px rgba(19, 32, 58, 0.06), 0 16px 40px -24px rgba(19, 32, 58, 0.28);
+  --dv-duree: 160ms;
+  --dv-courbe: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* --- Gabarit --- */
+  --dv-rail: 236px;
+  --dv-panneau: 344px;
+
+  font-family: var(--dv-sans);
+  color: var(--dv-texte);
+  background: var(--dv-papier);
+  font-size: var(--dv-t-15);
+  line-height: 1.5;
+  font-feature-settings: 'cv11', 'ss01', 'tnum';
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.dv *,
+.dv *::before,
+.dv *::after {
+  box-sizing: border-box;
+}
+
+.dv h1,
+.dv h2,
+.dv h3,
+.dv h4,
+.dv p,
+.dv ul,
+.dv ol,
+.dv figure {
+  margin: 0;
+}
+
+.dv ul,
+.dv ol {
+  padding: 0;
+  list-style: none;
+}
+
+.dv a {
+  color: inherit;
+}
+
+.dv :focus-visible {
+  outline: 2px solid var(--dv-cobalt);
+  outline-offset: 2px;
+  border-radius: var(--dv-r-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dv * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ---------- Typographie ---------- */
+
+.dv .t-affiche {
+  font-family: var(--dv-serif);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 144, 'SOFT' 20;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  font-size: var(--dv-t-34);
+}
+
+.dv .t-affiche.grand {
+  font-size: var(--dv-t-48);
+}
+
+.dv .t-titre {
+  font-family: var(--dv-serif);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 60;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  font-size: var(--dv-t-26);
+}
+
+.dv .t-section {
+  font-family: var(--dv-serif);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 36;
+  font-size: var(--dv-t-20);
+  line-height: 1.2;
+}
+
+.dv .t-sur {
+  font-size: var(--dv-t-11);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dv-texte-3);
+}
+
+.dv .t-sur.cuivre {
+  color: var(--dv-cuivre);
+}
+
+.dv .t-corps {
+  font-size: var(--dv-t-15);
+}
+
+.dv .t-petit {
+  font-size: var(--dv-t-12);
+  color: var(--dv-texte-2);
+}
+
+.dv .t-mini {
+  font-size: var(--dv-t-11);
+  color: var(--dv-texte-3);
+}
+
+.dv .t-chiffre {
+  font-family: var(--dv-serif);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 144;
+  font-size: var(--dv-t-34);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-feature-settings: 'tnum';
+}
+
+.dv .t-citation {
+  font-family: var(--dv-serif);
+  font-style: italic;
+  font-variation-settings: 'opsz' 40, 'SOFT' 50;
+  font-size: var(--dv-t-17);
+  line-height: 1.4;
+  color: var(--dv-encre);
+}
+
+.dv .doux {
+  color: var(--dv-texte-2);
+}
+
+.dv .tres-doux {
+  color: var(--dv-texte-3);
+}
+
+/* ---------- Coquille : rail, canevas, panneau ---------- */
+
+.dv-coque {
+  display: grid;
+  grid-template-columns: var(--dv-rail) minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.dv-coque.avec-panneau {
+  grid-template-columns: var(--dv-rail) minmax(0, 1fr) var(--dv-panneau);
+}
+
+.dv-rail {
+  background: var(--dv-encre);
+  color: var(--dv-texte-inverse);
+  padding: var(--dv-e-5) var(--dv-e-4);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--dv-e-6);
+}
+
+.dv-rail .marque {
+  display: flex;
+  align-items: center;
+  gap: var(--dv-e-3);
+  text-decoration: none;
+  padding: var(--dv-e-1) var(--dv-e-2);
+}
+
+.dv-rail .marque .sceau {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--dv-cuivre) 0%, #d99a5b 100%);
+  display: grid;
+  place-items: center;
+  font-family: var(--dv-serif);
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.dv-rail .marque strong {
+  display: block;
+  font-family: var(--dv-serif);
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.dv-rail .marque span span {
+  display: block;
+  font-size: var(--dv-t-11);
+  opacity: 0.6;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dv-rail nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dv-rail .section {
+  font-size: var(--dv-t-11);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  padding: var(--dv-e-2) var(--dv-e-2) var(--dv-e-1);
+}
+
+.dv-rail .lien {
+  display: flex;
+  align-items: center;
+  gap: var(--dv-e-3);
+  padding: 9px var(--dv-e-2);
+  border-radius: var(--dv-r-2);
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.78;
+  font-size: var(--dv-t-14);
+  min-height: 40px;
+  transition: background var(--dv-duree) var(--dv-courbe), opacity var(--dv-duree);
+}
+
+.dv-rail .lien:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dv-rail .lien[aria-current='page'] {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+}
+
+.dv-rail .lien .num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  flex: none;
+}
+
+.dv-rail .lien .num.fait {
+  background: var(--dv-sauge);
+  border-color: var(--dv-sauge);
+}
+
+.dv-rail .lien .num.en-cours {
+  background: var(--dv-cuivre);
+  border-color: var(--dv-cuivre);
+}
+
+.dv-rail .dossier {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--dv-r-3);
+  padding: var(--dv-e-4);
+  font-size: var(--dv-t-12);
+  line-height: 1.45;
+}
+
+.dv-rail .dossier strong {
+  display: block;
+  font-family: var(--dv-serif);
+  font-weight: 500;
+  font-size: var(--dv-t-15);
+  margin-bottom: 2px;
+}
+
+.dv-rail .pied {
+  margin-top: auto;
+  font-size: var(--dv-t-11);
+  opacity: 0.55;
+  line-height: 1.45;
+  padding: 0 var(--dv-e-2);
+}
+
+.dv-canevas {
+  min-width: 0;
+  padding: var(--dv-e-8) var(--dv-e-10) var(--dv-e-12);
+}
+
+.dv-panneau {
+  background: var(--dv-papier-2);
+  border-left: 1px solid var(--dv-filet);
+  padding: var(--dv-e-8) var(--dv-e-6);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--dv-e-8);
+}
+
+/* ---------- En-tête de page ---------- */
+
+.dv-entete {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--dv-e-6);
+  padding-bottom: var(--dv-e-6);
+  margin-bottom: var(--dv-e-8);
+  border-bottom: 1px solid var(--dv-filet);
+}
+
+.dv-entete .fil {
+  display: flex;
+  align-items: center;
+  gap: var(--dv-e-2);
+  margin-bottom: var(--dv-e-3);
+}
+
+.dv-entete .meta {
+  margin-top: var(--dv-e-3);
+  color: var(--dv-texte-2);
+  font-size: var(--dv-t-14);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dv-e-2) var(--dv-e-4);
+}
+
+.dv-entete .dv-actions {
+  display: flex;
+  gap: var(--dv-e-2);
+  flex: none;
+}
+
+/* ---------- Boutons ---------- */
+
+.dv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dv-e-2);
+  min-height: 40px;
+  padding: 0 var(--dv-e-4);
+  border-radius: var(--dv-r-2);
+  border: 1px solid var(--dv-filet-fort);
+  background: var(--dv-surface);
+  color: var(--dv-texte);
+  font: inherit;
+  font-size: var(--dv-t-14);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--dv-duree) var(--dv-courbe), border-color var(--dv-duree), transform var(--dv-duree);
+}
+
+.dv-btn:hover {
+  background: var(--dv-papier);
+  border-color: var(--dv-encre-3);
+}
+
+.dv-btn:active {
+  transform: translateY(1px);
+}
+
+.dv-btn.primaire {
+  background: var(--dv-encre);
+  border-color: var(--dv-encre);
+  color: var(--dv-texte-inverse);
+}
+
+.dv-btn.primaire:hover {
+  background: var(--dv-encre-2);
+}
+
+.dv-btn.cuivre {
+  background: var(--dv-cuivre-clair);
+  border-color: transparent;
+  color: var(--dv-cuivre-fonce);
+}
+
+.dv-btn.cuivre:hover {
+  background: #f0dcc8;
+}
+
+.dv-btn.fantome {
+  background: transparent;
+  border-color: transparent;
+  color: var(--dv-texte-2);
+}
+
+.dv-btn.fantome:hover {
+  background: var(--dv-encre-trans);
+}
+
+.dv-btn.petit {
+  min-height: 32px;
+  padding: 0 var(--dv-e-3);
+  font-size: var(--dv-t-12);
+  border-radius: var(--dv-r-1);
+}
+
+.dv-btn.icone {
+  width: 40px;
+  padding: 0;
+}
+
+.dv-btn.icone.petit {
+  width: 32px;
+}
+
+.dv-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ---------- Pastilles et étiquettes ---------- */
+
+.dv-pastille {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: var(--dv-t-11);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: var(--dv-papier-2);
+  color: var(--dv-texte-2);
+  white-space: nowrap;
+}
+
+.dv-pastille::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.8;
+}
+
+.dv-pastille.sans-point::before {
+  display: none;
+}
+
+.dv-pastille.sauge {
+  background: var(--dv-sauge-clair);
+  color: var(--dv-sauge);
+}
+
+.dv-pastille.garance {
+  background: var(--dv-garance-clair);
+  color: var(--dv-garance);
+}
+
+.dv-pastille.cobalt {
+  background: var(--dv-cobalt-clair);
+  color: var(--dv-cobalt);
+}
+
+.dv-pastille.ocre {
+  background: var(--dv-ocre-clair);
+  color: #8a6512;
+}
+
+.dv-pastille.cuivre {
+  background: var(--dv-cuivre-clair);
+  color: var(--dv-cuivre-fonce);
+}
+
+.dv-pastille.encre {
+  background: var(--dv-encre);
+  color: var(--dv-texte-inverse);
+}
+
+.dv-pastille.contour {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--dv-filet-fort);
+}
+
+/* « Proposé par règles » : signature cuivre */
+.dv-propose {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--dv-t-11);
+  font-weight: 600;
+  color: var(--dv-cuivre-fonce);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dv-propose::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--dv-cuivre);
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+/* ---------- Surfaces ---------- */
+
+.dv-bloc {
+  background: var(--dv-surface);
+  border: 1px solid var(--dv-filet);
+  border-radius: var(--dv-r-3);
+  box-shadow: var(--dv-ombre-1);
+}
+
+.dv-bloc > .tete {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--dv-e-4);
+  padding: var(--dv-e-5) var(--dv-e-6) 0;
+}
+
+.dv-bloc > .corps {
+  padding: var(--dv-e-5) var(--dv-e-6) var(--dv-e-6);
+}
+
+.dv-bloc.plat {
+  box-shadow: none;
+  background: transparent;
+  border-color: transparent;
+}
+
+.dv-section {
+  margin-bottom: var(--dv-e-10);
+}
+
+.dv-section > .tete {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--dv-e-4);
+  margin-bottom: var(--dv-e-4);
+}
+
+.dv-section > .tete p {
+  color: var(--dv-texte-2);
+  font-size: var(--dv-t-14);
+  margin-top: 2px;
+}
+
+.dv-filet {
+  border: 0;
+  border-top: 1px solid var(--dv-filet);
+  margin: var(--dv-e-6) 0;
+}
+
+/* ---------- Chiffres clés ---------- */
+
+.dv-chiffres {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--dv-filet);
+  border-bottom: 1px solid var(--dv-filet);
+}
+
+.dv-chiffres > div {
+  padding: var(--dv-e-5) var(--dv-e-5) var(--dv-e-5) 0;
+  border-right: 1px solid var(--dv-filet);
+  margin-right: var(--dv-e-5);
+}
+
+.dv-chiffres > div:last-child {
+  border-right: 0;
+  margin-right: 0;
+}
+
+.dv-chiffres .t-chiffre {
+  margin: var(--dv-e-2) 0 var(--dv-e-1);
+}
+
+.dv-chiffres .tendance {
+  font-size: var(--dv-t-12);
+  color: var(--dv-texte-2);
+}
+
+.dv-chiffres .tendance.sauge {
+  color: var(--dv-sauge);
+}
+
+.dv-chiffres .tendance.garance {
+  color: var(--dv-garance);
+}
+
+/* ---------- Tableau ---------- */
+
+.dv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--dv-t-14);
+}
+
+.dv-table th {
+  text-align: left;
+  font-size: var(--dv-t-11);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dv-texte-3);
+  padding: 0 var(--dv-e-3) var(--dv-e-3);
+  border-bottom: 1px solid var(--dv-filet-fort);
+}
+
+.dv-table td {
+  padding: var(--dv-e-4) var(--dv-e-3);
+  border-bottom: 1px solid var(--dv-filet);
+  vertical-align: top;
+}
+
+.dv-table tr:hover td {
+  background: rgba(19, 32, 58, 0.025);
+}
+
+.dv-table td:first-child,
+.dv-table th:first-child {
+  padding-left: 0;
+}
+
+.dv-table td:last-child,
+.dv-table th:last-child {
+  padding-right: 0;
+}
+
+.dv-table .num {
+  text-align: right;
+  font-feature-settings: 'tnum';
+}
+
+.dv-table.portefeuille {
+  table-layout: fixed;
+}
+
+.dv-table.portefeuille td {
+  padding-top: var(--dv-e-5);
+  padding-bottom: var(--dv-e-5);
+}
+
+/* ---------- Stepper de phases ---------- */
+
+.dv-stepper {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.dv-stepper > a,
+.dv-stepper > div {
+  text-decoration: none;
+  color: inherit;
+}
+
+.dv-stepper .jauge {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--dv-filet);
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.dv-stepper .jauge > span {
+  display: block;
+  height: 100%;
+  background: var(--dv-encre);
+  border-radius: inherit;
+}
+
+.dv-stepper .courante .jauge > span {
+  background: var(--dv-cuivre);
+}
+
+.dv-stepper .libelle {
+  font-size: var(--dv-t-11);
+  color: var(--dv-texte-3);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.dv-stepper .courante .libelle {
+  color: var(--dv-texte);
+}
+
+.dv-stepper.compact .libelle {
+  display: none;
+}
+
+/* ---------- Liste éditoriale ---------- */
+
+.dv-liste > li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--dv-e-4);
+  align-items: start;
+  padding: var(--dv-e-4) 0;
+  border-bottom: 1px solid var(--dv-filet);
+}
+
+.dv-liste > li:first-child {
+  padding-top: 0;
+}
+
+.dv-liste > li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.dv-liste .ordre {
+  font-family: var(--dv-serif);
+  font-size: var(--dv-t-20);
+  color: var(--dv-texte-3);
+  width: 28px;
+  line-height: 1.1;
+  font-variation-settings: 'opsz' 60;
+}
+
+.dv-liste .titre {
+  font-weight: 600;
+  font-size: var(--dv-t-15);
+  line-height: 1.35;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--dv-e-3);
+}
+
+.dv-liste .titre .dv-pastille {
+  flex: none;
+  margin-top: 2px;
+}
+
+.dv-liste > li.deux {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.dv-liste > li.selection {
+  background: var(--dv-surface);
+  margin: 0 calc(-1 * var(--dv-e-4));
+  padding: var(--dv-e-4);
+  border-radius: var(--dv-r-2);
+  border: 1px solid var(--dv-filet);
+}
+
+.dv-liste .detail {
+  color: var(--dv-texte-2);
+  font-size: var(--dv-t-14);
+  margin-top: 2px;
+}
+
+.dv-liste .marqueurs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--dv-e-2);
+}
+
+/* ---------- Barres de niveau (gravité, fréquence, effort) ---------- */
+
+.dv-niveau {
+  display: inline-flex;
+  gap: 3px;
+  vertical-align: middle;
+}
+
+.dv-niveau i {
+  width: 14px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--dv-filet);
+}
+
+.dv-niveau i.on {
+  background: var(--dv-encre);
+}
+
+.dv-niveau.garance i.on {
+  background: var(--dv-garance);
+}
+
+.dv-niveau.cobalt i.on {
+  background: var(--dv-cobalt);
+}
+
+.dv-niveau.sauge i.on {
+  background: var(--dv-sauge);
+}
+
+/* ---------- Journal (transcript) ---------- */
+
+.dv-journal {
+  display: flex;
+  flex-direction: column;
+}
+
+.dv-journal .dv-entree {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: var(--dv-e-3);
+  padding: var(--dv-e-3) 0;
+  border-bottom: 1px dashed var(--dv-filet);
+}
+
+.dv-journal .dv-entree:last-child {
+  border-bottom: 0;
+}
+
+.dv-journal .dv-heure {
+  font-size: var(--dv-t-11);
+  color: var(--dv-texte-3);
+  padding-top: 3px;
+  font-feature-settings: 'tnum';
+}
+
+.dv-journal .dv-heure b {
+  display: block;
+  font-weight: 600;
+  color: var(--dv-texte-2);
+}
+
+.dv-journal .dv-texte {
+  font-size: var(--dv-t-14);
+  line-height: 1.45;
+}
+
+.dv-journal .citation .dv-texte {
+  font-family: var(--dv-serif);
+  font-style: italic;
+  font-size: var(--dv-t-17);
+  font-variation-settings: 'opsz' 40, 'SOFT' 50;
+  color: var(--dv-encre);
+}
+
+.dv-journal .copilote .dv-texte {
+  color: var(--dv-cuivre-fonce);
+}
+
+.dv-journal .outils {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+  opacity: 0;
+  transition: opacity var(--dv-duree);
+}
+
+.dv-journal .dv-entree:hover .outils,
+.dv-journal .dv-entree:focus-within .outils {
+  opacity: 1;
+}
+
+.dv-saisie {
+  margin-top: var(--dv-e-4);
+  border: 1px solid var(--dv-filet-fort);
+  border-radius: var(--dv-r-2);
+  background: var(--dv-surface);
+  padding: var(--dv-e-3) var(--dv-e-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dv-e-3);
+  color: var(--dv-texte-3);
+  font-size: var(--dv-t-14);
+}
+
+/* ---------- Suggestions du copilote ---------- */
+
+.dv-suggestion {
+  padding: var(--dv-e-4) 0;
+  border-bottom: 1px solid var(--dv-filet-fort);
+}
+
+.dv-suggestion:first-of-type {
+  padding-top: 0;
+}
+
+.dv-suggestion:last-of-type {
+  border-bottom: 0;
+}
+
+.dv-suggestion .titre {
+  font-weight: 600;
+  margin: 6px 0 2px;
+  font-size: var(--dv-t-15);
+}
+
+.dv-suggestion .detail {
+  font-size: var(--dv-t-14);
+  color: var(--dv-texte-2);
+}
+
+.dv-suggestion .regle {
+  font-size: var(--dv-t-11);
+  color: var(--dv-texte-3);
+  margin-top: 6px;
+}
+
+.dv-suggestion .actions {
+  display: flex;
+  gap: 6px;
+  margin-top: var(--dv-e-2);
+}
+
+/* ---------- Trame (fil de questions) ---------- */
+
+.dv-trame {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.dv-trame > span {
+  flex: none;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--dv-filet-fort);
+  font-size: var(--dv-t-12);
+  color: var(--dv-texte-2);
+  background: var(--dv-surface);
+}
+
+.dv-trame > span.fait {
+  border-color: transparent;
+  background: var(--dv-sauge-clair);
+  color: var(--dv-sauge);
+}
+
+.dv-trame > span.courante {
+  border-color: var(--dv-encre);
+  background: var(--dv-encre);
+  color: var(--dv-texte-inverse);
+}
+
+/* ---------- Carte de processus ---------- */
+
+.dv-carte {
+  background: var(--dv-surface);
+  border: 1px solid var(--dv-filet);
+  border-radius: var(--dv-r-3);
+  overflow-x: auto;
+  box-shadow: var(--dv-ombre-1);
+}
+
+.dv-carte svg {
+  display: block;
+  min-width: 100%;
+}
+
+.dv-carte .couloir-fond {
+  fill: transparent;
+}
+
+.dv-carte .couloir-fond.alt {
+  fill: rgba(19, 32, 58, 0.025);
+}
+
+.dv-carte .couloir-nom {
+  font-family: var(--dv-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--dv-texte-3);
+}
+
+.dv-carte .noeud rect {
+  fill: var(--dv-surface);
+  stroke: var(--dv-filet-fort);
+  stroke-width: 1.2;
+}
+
+.dv-carte .noeud:hover rect {
+  stroke: var(--dv-encre);
+}
+
+.dv-carte .noeud text {
+  font-family: var(--dv-sans);
+  font-size: 12.5px;
+  fill: var(--dv-texte);
+}
+
+.dv-carte .noeud .sous {
+  font-size: 10.5px;
+  fill: var(--dv-texte-3);
+}
+
+.dv-carte .noeud .index {
+  font-family: var(--dv-serif);
+  font-size: 11px;
+  fill: var(--dv-texte-3);
+}
+
+.dv-carte .noeud.propose rect {
+  stroke: var(--dv-cuivre);
+  stroke-dasharray: 5 4;
+  fill: var(--dv-cuivre-clair);
+}
+
+.dv-carte .noeud.nouvelle rect {
+  fill: var(--dv-sauge-clair);
+  stroke: var(--dv-sauge);
+}
+
+.dv-carte .noeud.modifiee rect {
+  fill: var(--dv-cobalt-clair);
+  stroke: var(--dv-cobalt);
+}
+
+.dv-carte .noeud.selection rect {
+  stroke: var(--dv-encre);
+  stroke-width: 2;
+}
+
+.dv-carte .fleche {
+  fill: none;
+  stroke: var(--dv-encre-3);
+  stroke-width: 1.4;
+  marker-end: url(#dv-fleche);
+  opacity: 0.8;
+}
+
+.dv-carte .douleur circle {
+  fill: var(--dv-garance);
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.dv-carte .douleur text {
+  fill: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--dv-sans);
+}
+
+.dv-carte .duree {
+  font-family: var(--dv-sans);
+  font-size: 10px;
+  fill: var(--dv-texte-3);
+}
+
+.dv-legende {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dv-e-4);
+  font-size: var(--dv-t-12);
+  color: var(--dv-texte-2);
+  margin-top: var(--dv-e-3);
+}
+
+.dv-legende span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dv-legende i {
+  width: 14px;
+  height: 10px;
+  border-radius: 3px;
+  border: 1px solid var(--dv-filet-fort);
+  background: var(--dv-surface);
+}
+
+.dv-legende i.douleur {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--dv-garance);
+  border-color: var(--dv-garance);
+}
+
+.dv-legende i.propose {
+  border-color: var(--dv-cuivre);
+  border-style: dashed;
+  background: var(--dv-cuivre-clair);
+}
+
+.dv-legende i.nouvelle {
+  background: var(--dv-sauge-clair);
+  border-color: var(--dv-sauge);
+}
+
+.dv-legende i.modifiee {
+  background: var(--dv-cobalt-clair);
+  border-color: var(--dv-cobalt);
+}
+
+/* ---------- Carte des opportunités ---------- */
+
+.dv-opportunites {
+  width: 100%;
+  display: block;
+}
+
+.dv-opportunites text {
+  font-family: var(--dv-sans);
+  font-size: 11px;
+  fill: var(--dv-texte-3);
+}
+
+.dv-opportunites .quadrant-nom {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.dv-opportunites .point circle {
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.dv-opportunites .point text {
+  fill: var(--dv-texte);
+  font-size: 11.5px;
+}
+
+.dv-opportunites .point.ecartee {
+  opacity: 0.35;
+}
+
+/* ---------- Trajectoire (avant → cible) ---------- */
+
+.dv-trajectoire {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--dv-e-3);
+  align-items: center;
+  padding: var(--dv-e-3) 0;
+  border-bottom: 1px solid var(--dv-filet);
+}
+
+.dv-trajectoire:last-child {
+  border-bottom: 0;
+}
+
+.dv-trajectoire .piste {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--dv-papier-2);
+  margin-top: 6px;
+}
+
+.dv-trajectoire .piste > span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 999px;
+}
+
+.dv-trajectoire .piste .avant {
+  background: var(--dv-encre-3);
+}
+
+.dv-trajectoire .piste .cible {
+  background: var(--dv-sauge);
+}
+
+.dv-trajectoire .valeurs {
+  font-family: var(--dv-serif);
+  font-size: var(--dv-t-20);
+  font-variation-settings: 'opsz' 60;
+  white-space: nowrap;
+  font-feature-settings: 'tnum';
+}
+
+.dv-trajectoire .valeurs small {
+  font-family: var(--dv-sans);
+  font-size: var(--dv-t-11);
+  color: var(--dv-texte-3);
+  margin-left: 4px;
+}
+
+/* ---------- Agenda ---------- */
+
+.dv-agenda {
+  display: grid;
+  gap: var(--dv-e-2);
+}
+
+.dv-agenda .jour {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: var(--dv-e-4);
+  padding: var(--dv-e-3) 0;
+  border-top: 1px solid var(--dv-filet);
+}
+
+.dv-agenda .jour:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.dv-agenda .date {
+  font-family: var(--dv-serif);
+  font-variation-settings: 'opsz' 60;
+}
+
+.dv-agenda .date b {
+  display: block;
+  font-size: var(--dv-t-26);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.dv-agenda .date span {
+  font-family: var(--dv-sans);
+  font-size: var(--dv-t-11);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dv-texte-3);
+}
+
+.dv-agenda .action {
+  font-size: var(--dv-t-14);
+  padding: 4px 0;
+}
+
+.dv-agenda .action .qui {
+  color: var(--dv-texte-3);
+  font-size: var(--dv-t-12);
+}
+
+/* ---------- Détail de solution ---------- */
+
+.dv-faisabilite {
+  display: grid;
+  gap: var(--dv-e-2);
+  font-size: var(--dv-t-12);
+}
+
+.dv-faisabilite > div {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--dv-e-2);
+  color: var(--dv-texte-2);
+}
+
+/* ---------- États ---------- */
+
+.dv-vide {
+  border: 1px dashed var(--dv-filet-fort);
+  border-radius: var(--dv-r-3);
+  padding: var(--dv-e-8) var(--dv-e-6);
+  text-align: center;
+  color: var(--dv-texte-2);
+}
+
+.dv-vide .t-section {
+  color: var(--dv-texte);
+  margin-bottom: var(--dv-e-2);
+}
+
+.dv-squelette {
+  background: linear-gradient(90deg, var(--dv-papier-2) 25%, #f4f1ea 50%, var(--dv-papier-2) 75%);
+  background-size: 200% 100%;
+  animation: dv-brille 1.4s ease-in-out infinite;
+  border-radius: var(--dv-r-1);
+  height: 14px;
+}
+
+@keyframes dv-brille {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.dv-alerte {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--dv-e-3);
+  padding: var(--dv-e-4) var(--dv-e-5);
+  border-radius: var(--dv-r-2);
+  border: 1px solid var(--dv-filet);
+  background: var(--dv-surface);
+  font-size: var(--dv-t-14);
+}
+
+.dv-alerte.garance {
+  border-color: #e9c7c6;
+  background: var(--dv-garance-clair);
+}
+
+.dv-alerte.ocre {
+  border-color: #ecd9a4;
+  background: var(--dv-ocre-clair);
+}
+
+.dv-alerte.cuivre {
+  border-color: #ecd2bb;
+  background: var(--dv-cuivre-clair);
+}
+
+/* ---------- Grilles ---------- */
+
+.dv-grille {
+  display: grid;
+  gap: var(--dv-e-6);
+}
+
+.dv-grille.deux {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.dv-grille.cockpit {
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+}
+
+.dv-grille.atelier {
+  grid-template-columns: 340px minmax(0, 1fr);
+}
+
+.dv-grille.analyse {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+}
+
+.dv-ligne {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dv-e-2);
+}
+
+.dv-ligne.espace {
+  justify-content: space-between;
+}
+
+/* ---------- Galerie du système (page Direction) ---------- */
+
+.dv-nuancier {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--dv-e-3);
+}
+
+.dv-nuancier .teinte {
+  border-radius: var(--dv-r-2);
+  border: 1px solid var(--dv-filet);
+  overflow: hidden;
+  background: var(--dv-surface);
+}
+
+.dv-nuancier .teinte i {
+  display: block;
+  height: 56px;
+}
+
+.dv-nuancier .teinte span {
+  display: block;
+  padding: 8px 10px;
+  font-size: var(--dv-t-11);
+  color: var(--dv-texte-2);
+}
+
+.dv-nuancier .teinte span b {
+  display: block;
+  color: var(--dv-texte);
+  font-size: var(--dv-t-12);
+}
+
+.dv-echelle > div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--dv-e-4);
+  padding: var(--dv-e-3) 0;
+  border-bottom: 1px solid var(--dv-filet);
+}
+
+.dv-mobile-nav {
+  display: none;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 1280px) {
+  .dv-coque.avec-panneau {
+    grid-template-columns: var(--dv-rail) minmax(0, 1fr);
+  }
+  .dv-panneau {
+    grid-column: 2;
+    position: static;
+    height: auto;
+    border-left: 0;
+    border-top: 1px solid var(--dv-filet);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .dv-grille.cockpit,
+  .dv-grille.analyse {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .dv-grille.atelier {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dv-canevas {
+    padding: var(--dv-e-6) var(--dv-e-5) var(--dv-e-12);
+  }
+}
+
+@media (max-width: 860px) {
+  .dv-coque,
+  .dv-coque.avec-panneau {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dv-rail {
+    display: none;
+  }
+  .dv-panneau {
+    grid-column: 1;
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--dv-e-6) var(--dv-e-4) calc(var(--dv-e-12) + 56px);
+  }
+  .dv-canevas {
+    padding: var(--dv-e-5) var(--dv-e-4) var(--dv-e-8);
+  }
+  .dv-entete {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .dv-entete .dv-actions {
+    justify-content: flex-start;
+  }
+  .t-affiche {
+    font-size: var(--dv-t-26);
+  }
+  .dv .t-affiche.grand {
+    font-size: var(--dv-t-34);
+  }
+  .dv-grille.deux {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dv-chiffres {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .dv-chiffres > div:nth-child(2n) {
+    border-right: 0;
+  }
+  .dv-stepper .libelle {
+    display: none;
+  }
+  .dv-mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--dv-encre);
+    color: var(--dv-texte-inverse);
+    z-index: 40;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+  }
+  .dv-mobile-nav a {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-decoration: none;
+    font-size: 0.66rem;
+    opacity: 0.7;
+    border-radius: 10px;
+  }
+  .dv-mobile-nav a[aria-current='page'] {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .dv-table.defilant {
+    display: block;
+    overflow-x: auto;
+  }
+}

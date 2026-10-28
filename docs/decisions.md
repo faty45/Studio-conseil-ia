@@ -73,3 +73,11 @@ Une entrée par décision. Format : date, décision, contexte, options écartée
 - **Options écartées** : bibliothèque de composants externe (le système visuel maison suffit et reste léger) ; moteur de rendu Markdown externe (rendu minimal maison, pas de dépendance ajoutée sans accord) ; Supabase dans ce lot (règle du dépôt) ; appel à une IA externe (clé et accord client absents).
 - **Critères d'acceptation** : `docs/criteres-acceptation.md`.
 - **Statut** : en recette sur la branche `refonte/cockpit-conseil` ; la PR #3 reste la base technique conservée, non fusionnée.
+
+## 2026-10-28 — Direction visuelle « Le dossier de mission » (proposition, suite à la revue produit de la PR #5)
+
+- **Contexte** : la revue produit juge la profondeur fonctionnelle en progrès mais le design insuffisamment professionnel ; elle demande une direction visuelle forte, validée d'abord sur trois écrans de référence et un design system, avant toute application cosmétique.
+- **Proposition** : un logiciel de conseil haut de gamme comme un dossier bien relié : papier et filets plutôt que cartes, typographie éditoriale (Fraunces pour l'affiche et les chiffres, Inter pour l'interface), le cuivre réservé à ce que l'outil propose par règles, trois zones (rail d'encre, canevas, panneau contextuel), visualisations qui tranchent (carte de processus, carte des opportunités, trajectoires). Détail : `docs/design-system.md` et page `/direction`.
+- **Mise en œuvre** : prototype statique sous `/direction` (cockpit, atelier, analyse) sur la branche `design/direction-visuelle`, feuille de style scopée `.dv`, données fictives riches ; aucune modification des écrans de l'application.
+- **Options écartées** : bibliothèque de composants externe ou nouvelle police (poids et dépendances) ; direction « sombre et néon » (contraire au ton de conseil) ; appliquer directement le système à tous les écrans sans validation (demande explicite de la revue).
+- **Statut** : proposée, à valider par Faty ; le dossier `design/manus/` reste ouvert à un travail UX indépendant.
