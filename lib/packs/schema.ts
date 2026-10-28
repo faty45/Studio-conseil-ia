@@ -34,6 +34,12 @@ export const PackSchema = z.object({
     })
     .default({ acteurs: [], outils: [], marqueursEtapes: [] }),
   recettes: z.array(RecetteSchema).default([]),
+  /** Familles de processus de la bibliothèque concernées par ce métier. */
+  processusIds: z.array(z.string()).default([]),
+  /** Hypothèses de départ fréquentes pour ce métier, proposées en préparation. */
+  hypothesesTypiques: z.array(z.string()).default([]),
+  /** Parties prenantes habituelles (rôles). */
+  rolesTypiques: z.array(z.string()).default([]),
 });
 
 export const CoreSchema = z.object({

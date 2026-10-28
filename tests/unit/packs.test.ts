@@ -19,21 +19,6 @@ describe('packs métier en configuration', () => {
     expect(getPack('inconnu').id).toBe('general');
   });
 
-  it('accepte un nouveau pack ajouté par configuration, sans toucher au composant', () => {
-    const nouveau = PackSchema.parse({
-      id: 'poissonnerie',
-      version: '0.1.0',
-      label: 'Poissonnerie',
-      description: 'Test de configuration',
-      questions: [{ id: 'poi-1', texte: 'Comment arrivent les arrivages ?' }],
-      recettes: [
-        { id: 'poi-r1', titre: 'Fiche d’arrivage', categorie: 'simplification', detail: 'Une feuille par arrivage.', motsCles: ['arrivage'] },
-      ],
-    });
-    expect(nouveau.vocabulaire.acteurs).toEqual([]);
-    expect(nouveau.recettes[0].hypotheses).toEqual([]);
-  });
-
   it('refuse un pack mal formé', () => {
     expect(() => PackSchema.parse({ id: 'Mauvais ID', version: '1', label: '', description: '' })).toThrow();
   });

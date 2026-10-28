@@ -12,7 +12,7 @@ Fondatrice : **Faty**. Parle-lui en français, en la tutoyant, avec des phrases 
 
 ## État
 
-Phase de conception stratégique (octobre 2026). **Aucun développement, aucune migration Supabase, aucun déploiement Vercel sans validation explicite de Faty.** Les premiers cas d'usage sont ARDAN (veille professionnelle) et une boulangerie artisanale.
+Octobre 2026 : prototype « cockpit de mission et copilote de conseil » en recette (issue #4, branche `refonte/cockpit-conseil`), sur données fictives, stockage local du navigateur. **Aucune migration Supabase, aucun déploiement en production, aucune donnée réelle de client sans validation explicite de Faty.** Les premiers cas d'usage sont ARDAN (veille professionnelle) et une boulangerie artisanale. Les mécanismes « intelligents » sont des règles explicites : ne jamais les présenter comme une IA opérationnelle (voir `docs/criteres-acceptation.md`).
 
 ## Organisation du dépôt
 

@@ -1,13 +1,16 @@
 import type { Metadata, Viewport } from 'next';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/fraunces';
 import './globals.css';
-import { MissionProvider } from '../components/MissionContext';
+import { DepotProvider } from '../components/DepotContext';
+import { AppShell } from '../components/AppShell';
 
 export const metadata: Metadata = {
-  title: 'Studio Conseil IA — Atelier',
-  description: 'Ateliers hybrides de découverte et d’amélioration des processus',
+  title: 'Studio Conseil IA — Cockpit de mission',
+  description: 'Environnement de conseil en transformation : préparer, animer, analyser, décider, restituer, suivre.',
 };
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#14203a' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,7 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip" href="#contenu">
           Aller au contenu
         </a>
-        <MissionProvider>{children}</MissionProvider>
+        <DepotProvider>
+          <AppShell>{children}</AppShell>
+        </DepotProvider>
       </body>
     </html>
   );
