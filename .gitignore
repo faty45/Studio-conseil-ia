@@ -4,3 +4,9 @@ node_modules/
 *.log
 .DS_Store
 .tmp/
+
+# Sorties de build et de tests
+.next/
+playwright-report/
+test-results/
+.vercel/
