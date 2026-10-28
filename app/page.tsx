@@ -1,20 +1,127 @@
 'use client';
-import {useEffect,useMemo,useState} from 'react';
-import {coreQuestions,packs} from '../lib/packs';
-type Note={id:string;kind:'observation'|'probleme'|'idee';text:string};
-type State={client:string;pack:string;answers:Record<string,string>;statuses:Record<string,string>;notes:Note[];steps:string[];decisions:string};
-const initial:State={client:'ARDAN',pack:'ardan',answers:{},statuses:{},notes:[],steps:[],decisions:''};
-const key='studio-conseil-ia-demo-v1';
-export default function Home(){
- const [data,setData]=useState<State>(initial),[loaded,setLoaded]=useState(false),[tab,setTab]=useState<'atelier'|'solutions'|'suivi'>('atelier'),[question,setQuestion]=useState(0),[note,setNote]=useState(''),[kind,setKind]=useState<Note['kind']>('observation'),[step,setStep]=useState('');
- useEffect(()=>{try{const raw=localStorage.getItem(key);if(raw){const p=JSON.parse(raw);if(p&&Array.isArray(p.notes)&&Array.isArray(p.steps))setData({...initial,...p});}}catch{}setLoaded(true)},[]);
- useEffect(()=>{if(loaded)localStorage.setItem(key,JSON.stringify(data))},[data,loaded]);
- const pack=packs.find(p=>p.id===data.pack)||packs[0];const questions=[...coreQuestions,...pack.questions];
- const set=(patch:Partial<State>)=>setData(d=>({...d,...patch}));
- const download=()=>{const text=['# Compte rendu — '+data.client,'Pack : '+pack.label,'',...questions.map((q,i)=>'## '+q+'\n'+(data.answers[String(i)]||'À compléter')+'\nStatut : '+(data.statuses[String(i)]||'à vérifier')),'## Notes',...data.notes.map(n=>'- '+n.kind+' : '+n.text),'## Carte du processus',...data.steps.map((s,i)=>(i+1)+'. '+s),'## Décisions',data.decisions||'À décider','', 'Document de travail — validation humaine nécessaire.'].join('\n\n');const blob=new Blob([text],{type:'text/markdown;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='atelier-'+data.pack+'.md';a.click();URL.revokeObjectURL(url)};
- const suggestions=useMemo(()=>{const corpus=Object.values(data.answers).join(' ')+' '+data.notes.map(n=>n.text).join(' ');return [{title:'Simplifier avant d’automatiser',detail:'Vérifier les étapes inutiles et les doublons avec les équipes.',ready:true},{title:'Réutiliser les outils déjà présents',detail:'Faire l’inventaire des logiciels, accès et fonctionnalités avant tout achat.',ready:true},...(corpus.trim()?[{title:'Tester une automatisation ciblée',detail:'Choisir une étape répétitive, mesurer son volume et valider les exceptions.',ready:false}]:[])];},[data.answers,data.notes]);
- return <main className="shell"><header className="top"><div><div className="muted">STUDIO CONSEIL IA · MVP TERRAIN</div><h1>Comprendre. Trouver. Agir.</h1></div><span className="tag">Prototype local — sans partage</span></header>
- <div className="grid"><aside className="panel stack"><div><label>Client / atelier</label><input aria-label="Nom du client" value={data.client} onChange={e=>set({client:e.target.value})}/></div><div><label>Modèle métier</label><select aria-label="Modèle métier" value={data.pack} onChange={e=>{set({pack:e.target.value,answers:{},statuses:{},steps:[],notes:[],decisions:''});setQuestion(0)}}>{packs.map(p=><option key={p.id} value={p.id}>{p.label}</option>)}</select><p className="muted">{pack.description}</p></div><div className="nav"><button className={tab==='atelier'?'active':''} onClick={()=>setTab('atelier')}>1. Démarrer un atelier</button><button className={tab==='solutions'?'active':''} onClick={()=>setTab('solutions')}>2. Trouver des solutions</button><button className={tab==='suivi'?'active':''} onClick={()=>setTab('suivi')}>3. Suivre et restituer</button></div><div className="notice">Les données restent dans ce navigateur. Ne saisis aucune donnée client sensible avant la mise en place de l'authentification et du stockage sécurisé.</div></aside>
- <section className="panel">{tab==='atelier'?<><div className="row space"><h2>Atelier hybride</h2><span className="tag">Sauvegarde locale</span></div><div className="row"><button disabled={question===0} onClick={()=>setQuestion(n=>n-1)}>Précédente</button><span className="muted">Question {question+1} / {questions.length}</span><button disabled={question===questions.length-1} onClick={()=>setQuestion(n=>n+1)}>Suivante</button></div><div className="field"><label>{questions[question]}</label><textarea aria-label="Réponse" value={data.answers[String(question)]||''} placeholder="Écouter, noter, compléter ensemble…" onChange={e=>set({answers:{...data.answers,[String(question)]:e.target.value}})}/><select aria-label="Statut de la réponse" value={data.statuses[String(question)]||'a_verifier'} onChange={e=>set({statuses:{...data.statuses,[String(question)]:e.target.value}})}><option value="a_verifier">À vérifier</option><option value="declare">Déclaré par le client</option><option value="observe">Observé</option><option value="valide">Validé ensemble</option><option value="non_applicable">Non applicable</option></select></div><hr/><h3>Tableau libre</h3><div className="row"><select style={{maxWidth:150}} aria-label="Type de note" value={kind} onChange={e=>setKind(e.target.value as Note['kind'])}><option value="observation">Observation</option><option value="probleme">Problème</option><option value="idee">Idée</option></select></div><textarea aria-label="Nouvelle note" value={note} onChange={e=>setNote(e.target.value)} placeholder="Une remarque, un irritant, une idée…"/><button onClick={()=>{if(note.trim()){set({notes:[...data.notes,{id:crypto.randomUUID(),kind,text:note.trim()}]});setNote('')}}}>Ajouter une carte</button>{data.notes.map(n=><div className="card row space" key={n.id}><div><span className="tag">{n.kind}</span><p>{n.text}</p></div><button aria-label="Supprimer la note" onClick={()=>set({notes:data.notes.filter(x=>x.id!==n.id)})}>×</button></div>)}</>:tab==='solutions'?<><h2>Solutions à explorer</h2><p className="muted">Pistes génériques, non validées pour ce client. Aucune estimation de gain n'est inventée.</p>{suggestions.map((s,i)=><div className="card" key={i}><span className="tag">{s.ready?'À examiner maintenant':'À tester après vérification'}</span><h3>{s.title}</h3><p>{s.detail}</p></div>)}<div className="notice">La bibliothèque intermétiers et les recommandations IA seront connectées dans un lot ultérieur.</div></>:<><h2>Décisions et restitution</h2><label>Prochaines actions, responsables et points à vérifier</label><textarea aria-label="Décisions" value={data.decisions} onChange={e=>set({decisions:e.target.value})}/><div className="actions"><button className="primary" onClick={download}>Exporter le compte rendu (.md)</button></div><p className="muted">Relire et valider avant toute transmission au client.</p></>}</section>
- <aside className="panel"><h2>Carte du processus</h2><p className="muted">Construction manuelle éditable, en parallèle de la discussion. La génération assistée par IA arrivera après intégration sécurisée.</p><div className="row"><input aria-label="Nouvelle étape" value={step} onChange={e=>setStep(e.target.value)} placeholder="Nouvelle étape"/><button onClick={()=>{if(step.trim()){set({steps:[...data.steps,step.trim()]});setStep('')}}}>Ajouter</button></div>{data.steps.map((s,i)=><div className="card step" key={i}><span className="num">{i+1}</span><input aria-label={'Étape '+(i+1)} value={s} onChange={e=>set({steps:data.steps.map((v,j)=>i===j?e.target.value:v)})}/><button aria-label="Monter" disabled={i===0} onClick={()=>{const a=[...data.steps];[a[i-1],a[i]]=[a[i],a[i-1]];set({steps:a})}}>↑</button><button aria-label="Descendre" disabled={i===data.steps.length-1} onClick={()=>{const a=[...data.steps];[a[i+1],a[i]]=[a[i],a[i+1]];set({steps:a})}}>↓</button><button aria-label="Supprimer" onClick={()=>set({steps:data.steps.filter((_,j)=>j!==i)})}>×</button></div>)}<p className="footer">Carte en cours · {data.steps.length} étapes · à valider avec l'équipe</p></aside></div></main>
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useMissions } from '../components/MissionContext';
+import { getPack, packs } from '../lib/packs';
+
+function dateCourte(iso: string) {
+  const d = new Date(iso);
+  return isNaN(d.getTime()) ? '' : d.toLocaleDateString('fr-FR');
+}
+
+export default function Accueil() {
+  const { pret, missions, creer, supprimer } = useMissions();
+  const router = useRouter();
+  const [nom, setNom] = useState('');
+  const [packId, setPackId] = useState(packs[0].id);
+  const [ouvert, setOuvert] = useState(false);
+
+  const demarrer = (e: React.FormEvent) => {
+    e.preventDefault();
+    const m = creer(nom, packId);
+    router.push(`/mission/${m.id}/atelier`);
+  };
+
+  return (
+    <main className="page" id="contenu">
+      <header className="entete">
+        <div>
+          <div className="marque">Studio Conseil IA</div>
+          <h1>Comprendre, trouver, agir.</h1>
+          <p className="doux">Ateliers hybrides pour améliorer les processus avec les outils déjà présents.</p>
+        </div>
+        <span className="badge accent">Prototype local, sans partage</span>
+      </header>
+
+      <div className="grille-3">
+        <button className="carte-verbe" onClick={() => setOuvert(true)} aria-expanded={ouvert} aria-controls="nouvelle-mission">
+          <strong>Démarrer</strong>
+          Ouvrir un atelier : huit questions cœur, questions du métier, tableau libre, carte du processus.
+        </button>
+        <Link className="carte-verbe" href={missions[0] ? `/mission/${missions[0].id}/trouver` : '#missions'}>
+          <strong>Trouver</strong>
+          Problèmes, preuves, causes et pistes de solution fondées sur ce qui a été observé.
+        </Link>
+        <Link className="carte-verbe" href={missions[0] ? `/mission/${missions[0].id}/suivre` : '#missions'}>
+          <strong>Suivre</strong>
+          Actions décidées, synthèse et guide d’action à relire avant envoi.
+        </Link>
+      </div>
+
+      {ouvert && (
+        <form id="nouvelle-mission" className="panneau" onSubmit={demarrer}>
+          <h2>Nouvelle mission</h2>
+          <div className="champ">
+            <label htmlFor="nom-mission">Nom de la mission (client ou atelier)</label>
+            <input id="nom-mission" value={nom} onChange={(e) => setNom(e.target.value)} placeholder="Ex. ARDAN — veille" autoFocus />
+          </div>
+          <div className="champ">
+            <label htmlFor="pack-mission">Pack métier</label>
+            <select id="pack-mission" value={packId} onChange={(e) => setPackId(e.target.value)}>
+              {packs.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.label}
+                </option>
+              ))}
+            </select>
+            <p className="aide">{getPack(packId).description}</p>
+          </div>
+          <div className="actions">
+            <button type="submit" className="primaire" disabled={!pret}>
+              Ouvrir l’atelier
+            </button>
+            <button type="button" onClick={() => setOuvert(false)}>
+              Annuler
+            </button>
+          </div>
+        </form>
+      )}
+
+      <section className="panneau" id="missions" aria-labelledby="titre-missions">
+        <h2 id="titre-missions">Missions enregistrées dans ce navigateur</h2>
+        {!pret && <p className="doux">Chargement…</p>}
+        {pret && missions.length === 0 && <p className="doux">Aucune mission pour l’instant. Commence par « Démarrer ».</p>}
+        <ul className="liste-missions">
+          {missions.map((m) => (
+            <li key={m.id}>
+              <div>
+                <strong>{m.nom}</strong>
+                <div className="petit doux">
+                  {getPack(m.packId).label} · mise à jour le {dateCourte(m.misAJourLe)}
+                </div>
+              </div>
+              <div className="ligne" aria-label={`Ouvrir la mission ${m.nom}`}>
+                <Link className="lien-bouton" href={`/mission/${m.id}/atelier`}>
+                  Atelier
+                </Link>
+                <Link className="lien-bouton" href={`/mission/${m.id}/trouver`}>
+                  Trouver
+                </Link>
+                <Link className="lien-bouton" href={`/mission/${m.id}/suivre`}>
+                  Suivre
+                </Link>
+                <button
+                  type="button"
+                  className="danger"
+                  aria-label={`Supprimer la mission ${m.nom}`}
+                  onClick={() => {
+                    if (window.confirm(`Supprimer la mission « ${m.nom} » de ce navigateur ?`)) supprimer(m.id);
+                  }}
+                >
+                  Supprimer
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <div className="note attention">
+        Les données restent dans ce navigateur, sans compte ni serveur. Ne saisis aucune donnée personnelle ni information confidentielle de
+        client tant que l’authentification et le stockage sécurisé (lot suivant) ne sont pas en place. Utilise des rôles, pas des noms.
+      </div>
+    </main>
+  );
 }

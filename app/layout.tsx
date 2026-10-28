@@ -1,4 +1,23 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
-export const metadata: Metadata = {title:'Studio Conseil IA — Atelier',description:'Ateliers de transformation opérationnelle'};
-export default function RootLayout({children}:{children:React.ReactNode}) {return <html lang="fr"><body>{children}</body></html>}
+import { MissionProvider } from '../components/MissionContext';
+
+export const metadata: Metadata = {
+  title: 'Studio Conseil IA — Atelier',
+  description: 'Ateliers hybrides de découverte et d’amélioration des processus',
+};
+
+export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="fr">
+      <body>
+        <a className="skip" href="#contenu">
+          Aller au contenu
+        </a>
+        <MissionProvider>{children}</MissionProvider>
+      </body>
+    </html>
+  );
+}
