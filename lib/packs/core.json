@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "questions": [
+    { "id": "q1", "texte": "Quel résultat souhaitez-vous obtenir, et pourquoi maintenant ?", "aide": "Noter les mots du client." },
+    { "id": "q2", "texte": "Qu'est-ce qui déclenche ce travail ?", "aide": "Un mail, une commande, une heure, une personne…" },
+    { "id": "q3", "texte": "Quelles informations ou quels documents utilisez-vous ?", "aide": "Papier, tableur, logiciel, mémoire." },
+    { "id": "q4", "texte": "Quelles sont les étapes, dans l'ordre réel ?", "aide": "Une étape par ligne : ce qui se passe vraiment, pas ce qui devrait." },
+    { "id": "q5", "texte": "Qui intervient, et avec quels outils ?", "aide": "Des rôles, pas des noms." },
+    { "id": "q6", "texte": "Qu'est-ce qui prend du temps, se répète ou crée des erreurs ?", "aide": "Chercher le double travail, l'attente, le rebut." },
+    { "id": "q7", "texte": "Quelles exceptions ou validations sont indispensables ?", "aide": "Ce qu'on ne doit surtout pas automatiser à l'aveugle." },
+    { "id": "q8", "texte": "Comment saurons-nous qu'une amélioration fonctionne ?", "aide": "Un chiffre ou un signe observable, avant et après." }
+  ]
+}

@@ -51,3 +51,25 @@ Une entrée par décision. Format : date, décision, contexte, options écartée
 - **Décision proposée** : clause de capitalisation méthodologique, mention de validation humaine, droits d'export et d'effacement, information des participants ; assurance RC pro vérifiée pour l'erreur de conseil assisté par IA.
 - **Contexte** : analyse C ; la base inter-clients n'est pas tenable sans ce socle contractuel.
 - **Statut** : proposée, à valider par Faty (budget juriste à prévoir).
+
+## 2026-10-28 — Lancement du développement (MVP v1, PR #3)
+
+- **Décision de Faty** : développer une première version fonctionnelle, testée, consultable en prévisualisation Vercel, sans déploiement en production ; travail uniquement dans ce dépôt.
+- **Choix d'implémentation** : Next.js 15 (App Router), stockage local du navigateur derrière l'interface `MissionStore` (implémentation Supabase prévue au lot 2), packs métier en JSON validés par zod, extraction d'étapes par règles locales derrière une passerelle IA indépendante du fournisseur (adaptateurs `anthropic` et `hermes` réservés, non actifs), synthèse séparant constats / hypothèses / recommandations, tests unitaires (vitest) et de parcours (Playwright), CI GitHub Actions.
+- **Options écartées pour ce lot** : Supabase Auth + RLS (lot 2, sur validation), génération de carte par IA externe (lot 3), agents autonomes (hors MVP).
+- **Statut** : en recette sur la PR #3.
+
+## 2026-10-28 — Refonte : cockpit de mission et copilote de conseil (issue #4)
+
+- **Décision de Faty** : ne pas se limiter au MVP v1 (jugé trop minimal) ; développer un véritable outil de conseil, sur une branche dédiée, avec prévisualisation Vercel, en respectant les garde-fous de l'issue #4 (pas de données réelles sans auth et isolation, pas de secrets, pas d'actions autonomes, pas de fusion automatique, travail existant conservé dans Git).
+- **Choix de conception** :
+  - six phases par mission (Préparer, Atelier, Analyser, Décider, Restituer, Suivre) et un cockpit clients / missions ;
+  - une **bibliothèque intermétiers** versionnée (processus, problèmes universels avec signaux et question de confirmation, patrons de solution avec prérequis, risques, limites, adaptations par taille, alternative sans IA) ;
+  - une **intelligence fondée sur des règles explicites** (classification, correspondances, priorisation, copilote, extraction) : chaque résultat affiche sa règle, est marqué « proposé » et confirmé par la consultante. Rien n'est présenté comme une IA ; la passerelle IA reste réservée et non configurée ;
+  - une **carte de processus en couloirs** (SVG, sans dépendance) éditable, avec version actuelle et cible, pastilles de problèmes par étape ;
+  - un **diagnostic généré depuis les données** (jamais de phrase inventée), exportable en Markdown et imprimable ;
+  - deux parcours fictifs complets (ARDAN, boulangerie) chargés à la demande, roles plutôt que noms ;
+  - stockage local derrière l'interface `Depot`, Supabase et IA payante déclarés comme prérequis (voir `docs/criteres-acceptation.md` § 3).
+- **Options écartées** : bibliothèque de composants externe (le système visuel maison suffit et reste léger) ; moteur de rendu Markdown externe (rendu minimal maison, pas de dépendance ajoutée sans accord) ; Supabase dans ce lot (règle du dépôt) ; appel à une IA externe (clé et accord client absents).
+- **Critères d'acceptation** : `docs/criteres-acceptation.md`.
+- **Statut** : en recette sur la branche `refonte/cockpit-conseil` ; la PR #3 reste la base technique conservée, non fusionnée.

@@ -1,0 +1,209 @@
+{
+  "id": "boulangerie",
+  "version": "1.0.0",
+  "label": "Boulangerie — Découverte",
+  "description": "Identifier les difficultés réelles du fournil et de la boutique, sans préjuger de l'organisation.",
+  "questions": [
+    {
+      "id": "boul-1",
+      "texte": "Comment arrivent les demandes et les commandes ?"
+    },
+    {
+      "id": "boul-2",
+      "texte": "Comment organisez-vous la production et l'approvisionnement ?"
+    },
+    {
+      "id": "boul-3",
+      "texte": "Quels outils ou supports utilisez-vous aujourd'hui ?"
+    },
+    {
+      "id": "boul-4",
+      "texte": "Montrez-nous une tâche qui vous fait perdre du temps."
+    }
+  ],
+  "vocabulaire": {
+    "acteurs": [
+      "boulanger",
+      "boulangère",
+      "vendeuse",
+      "vendeur",
+      "apprenti",
+      "apprentie",
+      "patron",
+      "patronne",
+      "pâtissier",
+      "pâtissière",
+      "livreur",
+      "client"
+    ],
+    "outils": [
+      "caisse",
+      "cahier",
+      "carnet",
+      "tableau",
+      "feuille",
+      "téléphone",
+      "whatsapp",
+      "sms",
+      "tableur",
+      "excel",
+      "four",
+      "pétrin",
+      "chambre de pousse",
+      "ardoise",
+      "agenda"
+    ]
+  },
+  "recettes": [
+    {
+      "id": "boul-invendus",
+      "titre": "Cahier des invendus pendant deux semaines",
+      "categorie": "simplification",
+      "detail": "Une feuille par jour : produit, fabriqué, vendu, jeté. Après deux semaines, ajuster les quantités des deux ou trois produits les plus jetés.",
+      "motsCles": [
+        "invendu",
+        "invendus",
+        "jeté",
+        "jette",
+        "reste",
+        "gaspillage",
+        "perte",
+        "pertes",
+        "trop"
+      ],
+      "hypotheses": [
+        "Les quantités produites ne tiennent pas compte du jour de la semaine."
+      ],
+      "limites": [
+        "Demande cinq minutes de saisie chaque soir ; résultat indicatif, pas une prévision."
+      ]
+    },
+    {
+      "id": "boul-commandes",
+      "titre": "Un seul canal et un seul endroit pour les commandes",
+      "categorie": "outil_existant",
+      "detail": "Regrouper les commandes (téléphone, comptoir, messagerie) sur un support unique daté près du four ; message d'absence automatique avec l'heure limite si une messagerie existe déjà.",
+      "motsCles": [
+        "commande",
+        "commandes",
+        "téléphone",
+        "whatsapp",
+        "sms",
+        "oubli",
+        "oublie",
+        "noté",
+        "papier"
+      ],
+      "hypotheses": [
+        "Les commandes arrivent par plusieurs canaux et sont parfois oubliées."
+      ],
+      "limites": [
+        "Ne règle pas les commandes prises à l'oral sans les écrire."
+      ]
+    },
+    {
+      "id": "boul-caisse",
+      "titre": "Lire ce que la caisse sait déjà",
+      "categorie": "outil_existant",
+      "detail": "Exporter les ventes par produit et par heure sur un mois et les regarder dans un tableur : heures creuses, produits qui ne tournent pas. Ce sont des mesures, pas une analyse de processus.",
+      "motsCles": [
+        "caisse",
+        "ticket",
+        "ventes",
+        "vente",
+        "heure",
+        "rush",
+        "creuse",
+        "affluence"
+      ],
+      "hypotheses": [
+        "La caisse permet un export ; à vérifier sur le modèle en place."
+      ],
+      "limites": [
+        "Les tickets ne décrivent pas le processus de fabrication."
+      ]
+    },
+    {
+      "id": "boul-planning",
+      "titre": "Planning de production sur une feuille visible au fournil",
+      "categorie": "simplification",
+      "detail": "Une feuille par jour de semaine avec les quantités de référence, affichée au fournil et corrigée au crayon ; doublée d'un calendrier partagé sur le téléphone pour les commandes spéciales.",
+      "motsCles": [
+        "planning",
+        "production",
+        "quantité",
+        "quantités",
+        "fournée",
+        "organis",
+        "matin",
+        "prévoir"
+      ],
+      "hypotheses": [
+        "Les quantités sont aujourd'hui décidées de tête chaque matin."
+      ],
+      "limites": [
+        "Suppose une personne responsable de la mise à jour."
+      ]
+    },
+    {
+      "id": "boul-double",
+      "titre": "Supprimer la double saisie",
+      "categorie": "simplification",
+      "detail": "Repérer ce qui est écrit deux fois (cahier puis tableur, ardoise puis caisse) et ne garder qu'un support, celui qui est consulté.",
+      "motsCles": [
+        "deux fois",
+        "double",
+        "recopie",
+        "recopier",
+        "refait",
+        "ressaisi"
+      ],
+      "hypotheses": [
+        "Une information est recopiée d'un support à l'autre."
+      ],
+      "limites": [
+        "Peut demander de changer une habitude ancienne."
+      ]
+    },
+    {
+      "id": "boul-prestataire",
+      "titre": "Logiciel de production ou caisse connectée : seulement sur un besoin mesuré",
+      "categorie": "prestataire",
+      "detail": "Si les relevés montrent des pertes importantes ou des commandes manquées malgré les mesures simples, consulter un prestataire pour un logiciel de production ou une caisse mieux adaptée.",
+      "motsCles": [
+        "logiciel",
+        "application",
+        "abonnement",
+        "prestataire",
+        "informatique"
+      ],
+      "hypotheses": [
+        "Les mesures simples auront été essayées d'abord."
+      ],
+      "limites": [
+        "Coût mensuel ; vérifier la réglementation des logiciels de caisse avant tout conseil."
+      ]
+    }
+  ],
+  "processusIds": [
+    "production",
+    "vente",
+    "achats",
+    "pilotage",
+    "organisation"
+  ],
+  "hypothesesTypiques": [
+    "Les quantités du jour sont décidées de tête, sans regarder les ventes passées.",
+    "Les commandes arrivent par plusieurs canaux et certaines sont oubliées.",
+    "Les invendus ne sont ni comptés ni valorisés.",
+    "Une seule personne sait faire la clôture de caisse.",
+    "La caisse contient des données jamais exploitées."
+  ],
+  "rolesTypiques": [
+    "Patronne / patron",
+    "Boulanger",
+    "Vendeuse / vendeur",
+    "Apprenti(e)",
+    "Clients professionnels"
+  ]
+}
