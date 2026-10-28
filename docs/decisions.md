@@ -51,3 +51,23 @@ Une entrée par décision. Format : date, décision, contexte, options écartée
 - **Décision proposée** : clause de capitalisation méthodologique, mention de validation humaine, droits d'export et d'effacement, information des participants ; assurance RC pro vérifiée pour l'erreur de conseil assisté par IA.
 - **Contexte** : analyse C ; la base inter-clients n'est pas tenable sans ce socle contractuel.
 - **Statut** : proposée, à valider par Faty (budget juriste à prévoir).
+
+## 2026-10-28 — Arbitrages de la synthèse non validés par Faty (revue en cours)
+
+- **Décision de Faty** : ne sont pas validés à ce stade : la phase 0 obligatoire avec tableurs avant tout développement ; le retrait des grands groupes de la vision à long terme ; la limitation définitive de la bibliothèque de connaissances ; le report systématique des fonctionnalités innovantes.
+- **Conséquence** : le MVP devient une application interactive utilisable dès les premiers ateliers ; les grands groupes et les fonctionnalités avancées sont classés « modules futurs » avec prérequis, jamais supprimés ; les seuils de la base commune deviennent des réglages.
+- **Contexte** : réexamen demandé à la lumière d'un benchmark indépendant Perplexity Pro ; voir `docs/confrontation-perplexity.md`.
+- **Statut** : décision de Faty, en cours d'intégration sur la branche `revue/confrontation-perplexity`.
+
+## 2026-10-28 — Couche d'agents Hermes, sans dépendance exclusive
+
+- **Décision de Faty** : intégrer une architecture d'agents Hermes (Hermes Agent, Nous Research, open source MIT, février 2026) sans dépendance exclusive à ce moteur.
+- **Proposition** : compétences en fichiers Markdown versionnés, outils exposés par un serveur MCP maison, mémoire dans notre base, Hermes comme premier moteur d'exécution parmi d'autres ; approbation humaine avant toute action à risque.
+- **Statut** : proposée, détaillée dans `docs/confrontation-perplexity.md` § 4.4.
+
+## 2026-10-28 — Confrontation avec le benchmark Perplexity Pro : arbitrages révisés
+
+- **Décision proposée** : Claude retire la phase 0 sans code et l'exclusion des grands groupes ; le MVP est une application interactive dès les premiers ateliers (accueil Démarrer / Trouver / Suivre) ; la preuve devient une entité typée (déclaration / document / observation / trace) ; les causes portent un statut hypothèse / validée / invalidée ; le référentiel a trois axes (≈ 100 activités, 20 causes, 30 recettes, PCF optionnel) avec des tailles de départ et des seuils réglables ; les tickets de caisse donnent des mesures, pas du process mining.
+- **Contexte** : rapport Perplexity Pro déposé par Faty le 28 octobre 2026 (`research/perplexity/rapport-2026-10-28-synthese.md`) ; confrontation point par point dans `docs/confrontation-perplexity.md`.
+- **Options écartées** : défendre la phase 0 ; limiter la bibliothèque à une taxonomie fixe ; supprimer des idées au motif qu'elles ne sont pas dans le MVP (elles sont classées modules futurs).
+- **Statut** : proposée, soumise en revue sur la branche `revue/confrontation-perplexity`.
