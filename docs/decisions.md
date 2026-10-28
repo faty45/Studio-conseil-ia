@@ -64,3 +64,10 @@ Une entrée par décision. Format : date, décision, contexte, options écartée
 - **Décision de Faty** : intégrer une architecture d'agents Hermes (Hermes Agent, Nous Research, open source MIT, février 2026) sans dépendance exclusive à ce moteur.
 - **Proposition** : compétences en fichiers Markdown versionnés, outils exposés par un serveur MCP maison, mémoire dans notre base, Hermes comme premier moteur d'exécution parmi d'autres ; approbation humaine avant toute action à risque.
 - **Statut** : proposée, détaillée dans `docs/confrontation-perplexity.md` § 4.4.
+
+## 2026-10-28 — Confrontation avec le benchmark Perplexity Pro : arbitrages révisés
+
+- **Décision proposée** : Claude retire la phase 0 sans code et l'exclusion des grands groupes ; le MVP est une application interactive dès les premiers ateliers (accueil Démarrer / Trouver / Suivre) ; la preuve devient une entité typée (déclaration / document / observation / trace) ; les causes portent un statut hypothèse / validée / invalidée ; le référentiel a trois axes (≈ 100 activités, 20 causes, 30 recettes, PCF optionnel) avec des tailles de départ et des seuils réglables ; les tickets de caisse donnent des mesures, pas du process mining.
+- **Contexte** : rapport Perplexity Pro déposé par Faty le 28 octobre 2026 (`research/perplexity/rapport-2026-10-28-synthese.md`) ; confrontation point par point dans `docs/confrontation-perplexity.md`.
+- **Options écartées** : défendre la phase 0 ; limiter la bibliothèque à une taxonomie fixe ; supprimer des idées au motif qu'elles ne sont pas dans le MVP (elles sont classées modules futurs).
+- **Statut** : proposée, soumise en revue sur la branche `revue/confrontation-perplexity`.

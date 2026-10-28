@@ -24,6 +24,7 @@ Phase de conception stratégique (octobre 2026). **Aucun développement, aucune 
 | `docs/architecture.md` | Modèle de données, modules, choix techniques |
 | `docs/decisions.md` | Journal des décisions (une entrée datée par décision) |
 | `docs/synthese-consolidee.md` | Synthèse des recherches et des analyses contradictoires |
+| `docs/confrontation-perplexity.md` | Confrontation avec le benchmark Perplexity Pro : matrice, compléments, architecture, MVP interactif, feuille de route |
 | `research/claude/` | Recherches et analyses produites avec Claude |
 | `research/perplexity/`, `research/kimi/` | Recherches produites avec d'autres outils |
 | `design/manus/` | Maquettes et explorations de design |
