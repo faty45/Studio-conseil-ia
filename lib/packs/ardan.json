@@ -1,0 +1,72 @@
+{
+  "id": "ardan",
+  "version": "1.0.0",
+  "label": "ARDAN — Veille",
+  "description": "Découvrir la veille avec les personnes qui la font, sans supposer leurs sources ni leurs outils.",
+  "questions": [
+    { "id": "ardan-1", "texte": "Quelles sources sont consultées, et à quelle fréquence ?" },
+    { "id": "ardan-2", "texte": "Comment vérifiez-vous une information avant de la diffuser ?" },
+    { "id": "ardan-3", "texte": "À qui, et sous quelle forme, transmettez-vous la veille ?" },
+    { "id": "ardan-4", "texte": "Montrez-nous un exemple récent, de bout en bout." }
+  ],
+  "vocabulaire": {
+    "acteurs": ["chargée de veille", "chargé de veille", "responsable", "équipe", "direction", "destinataires", "conseiller", "conseillère", "stagiaire"],
+    "outils": ["mail", "messagerie", "outlook", "gmail", "newsletter", "lettre d'information", "tableur", "excel", "google sheets", "site", "flux rss", "alerte", "google alerts", "linkedin", "whatsapp", "teams", "drive", "sharepoint"]
+  },
+  "recettes": [
+    {
+      "id": "ardan-tri",
+      "titre": "Trier les sources dès l'arrivée avec les règles de la messagerie",
+      "categorie": "outil_existant",
+      "detail": "Créer des règles de tri (expéditeur, mot du sujet) dans la messagerie déjà utilisée pour ranger automatiquement les sources dans des dossiers par thème.",
+      "motsCles": ["mail", "messagerie", "newsletter", "boîte", "tri", "trier", "dossier", "lettre"],
+      "hypotheses": ["L'équipe reçoit la majorité des sources par courriel."],
+      "limites": ["Ne trie pas ce qui arrive hors messagerie (sites, réseaux sociaux)."]
+    },
+    {
+      "id": "ardan-sources",
+      "titre": "Mesurer quelles sources finissent réellement diffusées",
+      "categorie": "simplification",
+      "detail": "Pendant deux semaines, noter pour chaque information retenue sa source ; désabonner les sources dont rien n'est jamais repris.",
+      "motsCles": ["source", "sources", "abonnement", "sites", "fréquence", "consult"],
+      "hypotheses": ["Une partie des sources consultées ne produit jamais de contenu diffusé."],
+      "limites": ["Demande un relevé manuel de deux semaines."]
+    },
+    {
+      "id": "ardan-resume",
+      "titre": "Résumé assisté relu avant envoi",
+      "categorie": "automatisation",
+      "detail": "Utiliser l'assistant IA déjà inclus dans la suite bureautique (si présent) pour proposer deux lignes de résumé par information ; une personne relit toujours avant diffusion.",
+      "motsCles": ["résumé", "résumer", "rédiger", "reformuler", "synthèse", "diffusion", "diffuser", "transmet"],
+      "hypotheses": ["La suite bureautique inclut un assistant ; sinon ce point devient un achat à décider."],
+      "limites": ["Jamais d'envoi sans relecture humaine ; vérifier que les textes envoyés à l'assistant ne contiennent pas de données personnelles."]
+    },
+    {
+      "id": "ardan-format",
+      "titre": "Un format fixe de bulletin : quoi, pour qui, avant quand, lien",
+      "categorie": "simplification",
+      "detail": "Convenir d'un gabarit unique pour chaque information diffusée, pour réduire le temps de rédaction et les relectures.",
+      "motsCles": ["format", "bulletin", "destinataire", "transmet", "forme", "envoi", "envoyer", "diffus"],
+      "hypotheses": ["Le format actuel varie selon la personne qui rédige."],
+      "limites": ["Suppose l'accord des destinataires sur le nouveau format."]
+    },
+    {
+      "id": "ardan-double",
+      "titre": "Éviter la double lecture d'une même information",
+      "categorie": "simplification",
+      "detail": "Répartir les sources entre les personnes ou partager un tableau unique « lu / retenu / diffusé » pour qu'une information ne soit traitée qu'une fois.",
+      "motsCles": ["deux fois", "double", "doublon", "relire", "relit", "refait", "plusieurs personnes"],
+      "hypotheses": ["Deux personnes lisent parfois les mêmes sources."],
+      "limites": ["Demande une règle de répartition tenue à jour."]
+    },
+    {
+      "id": "ardan-prestataire",
+      "titre": "Outil de veille dédié : seulement après trois mois de pratique",
+      "categorie": "prestataire",
+      "detail": "Si, après trois mois, le tri et la rediffusion restent lourds malgré les règles de messagerie, consulter un prestataire ou un outil de veille spécialisé.",
+      "motsCles": ["outil de veille", "logiciel de veille", "plateforme", "abonnement payant", "prestataire"],
+      "hypotheses": ["Les outils existants auront d'abord été exploités à fond."],
+      "limites": ["Coût récurrent ; dépendance à un fournisseur."]
+    }
+  ]
+}

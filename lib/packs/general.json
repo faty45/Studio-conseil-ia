@@ -1,0 +1,43 @@
+{
+  "id": "general",
+  "version": "1.0.0",
+  "label": "Découverte générale",
+  "description": "Un atelier ouvert, adaptable à tous les métiers.",
+  "questions": [
+    { "id": "gen-1", "texte": "Quel exemple concret pourrions-nous observer ensemble ?" },
+    { "id": "gen-2", "texte": "Qu'avez-vous déjà essayé pour améliorer cette situation ?" }
+  ],
+  "vocabulaire": {
+    "acteurs": ["responsable", "équipe", "collègue", "client", "fournisseur", "direction", "assistant", "assistante"],
+    "outils": ["mail", "messagerie", "tableur", "excel", "téléphone", "papier", "logiciel", "agenda", "whatsapp"]
+  },
+  "recettes": [
+    {
+      "id": "gen-double",
+      "titre": "Supprimer une double saisie",
+      "categorie": "simplification",
+      "detail": "Repérer l'information écrite deux fois et ne garder qu'un support.",
+      "motsCles": ["deux fois", "double", "recopie", "ressaisi", "refait"],
+      "hypotheses": ["Une information est recopiée d'un support à l'autre."],
+      "limites": ["Peut demander de changer une habitude."]
+    },
+    {
+      "id": "gen-attente",
+      "titre": "Réduire une attente de validation",
+      "categorie": "simplification",
+      "detail": "Convenir d'un délai de réponse et d'un remplaçant quand la personne qui valide est absente.",
+      "motsCles": ["attente", "attend", "valider", "validation", "signature", "bloqué"],
+      "hypotheses": ["Le travail s'arrête en attendant une validation."],
+      "limites": ["Suppose l'accord de la personne qui valide."]
+    },
+    {
+      "id": "gen-outil",
+      "titre": "Utiliser une fonction déjà présente dans un outil existant",
+      "categorie": "outil_existant",
+      "detail": "Avant tout achat, inventorier les outils en place (messagerie, tableur, agenda) et leurs fonctions inutilisées : règles, modèles, rappels.",
+      "motsCles": ["outil", "logiciel", "mail", "tableur", "agenda", "abonnement"],
+      "hypotheses": ["Des fonctions existantes ne sont pas utilisées."],
+      "limites": ["Demande une courte formation."]
+    }
+  ]
+}

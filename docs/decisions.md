@@ -51,3 +51,10 @@ Une entrée par décision. Format : date, décision, contexte, options écartée
 - **Décision proposée** : clause de capitalisation méthodologique, mention de validation humaine, droits d'export et d'effacement, information des participants ; assurance RC pro vérifiée pour l'erreur de conseil assisté par IA.
 - **Contexte** : analyse C ; la base inter-clients n'est pas tenable sans ce socle contractuel.
 - **Statut** : proposée, à valider par Faty (budget juriste à prévoir).
+
+## 2026-10-28 — Lancement du développement (MVP v1, PR #3)
+
+- **Décision de Faty** : développer une première version fonctionnelle, testée, consultable en prévisualisation Vercel, sans déploiement en production ; travail uniquement dans ce dépôt.
+- **Choix d'implémentation** : Next.js 15 (App Router), stockage local du navigateur derrière l'interface `MissionStore` (implémentation Supabase prévue au lot 2), packs métier en JSON validés par zod, extraction d'étapes par règles locales derrière une passerelle IA indépendante du fournisseur (adaptateurs `anthropic` et `hermes` réservés, non actifs), synthèse séparant constats / hypothèses / recommandations, tests unitaires (vitest) et de parcours (Playwright), CI GitHub Actions.
+- **Options écartées pour ce lot** : Supabase Auth + RLS (lot 2, sur validation), génération de carte par IA externe (lot 3), agents autonomes (hors MVP).
+- **Statut** : en recette sur la PR #3.
