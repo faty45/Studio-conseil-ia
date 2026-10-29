@@ -24,6 +24,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const av = m ? avancement(m) : undefined;
   const phaseCourante = params?.phase as PhaseMission | undefined;
 
+  // Le prototype hybride (/studio) a sa propre coquille.
+  if (pathname.startsWith('/studio')) return <>{children}</>;
+
   return (
     <div className="app">
       <aside className="barre" aria-label="Navigation principale">

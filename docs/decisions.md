@@ -73,3 +73,10 @@ Une entrée par décision. Format : date, décision, contexte, options écartée
 - **Options écartées** : bibliothèque de composants externe (le système visuel maison suffit et reste léger) ; moteur de rendu Markdown externe (rendu minimal maison, pas de dépendance ajoutée sans accord) ; Supabase dans ce lot (règle du dépôt) ; appel à une IA externe (clé et accord client absents).
 - **Critères d'acceptation** : `docs/criteres-acceptation.md`.
 - **Statut** : en recette sur la branche `refonte/cockpit-conseil` ; la PR #3 reste la base technique conservée, non fusionnée.
+
+## 2026-10-29 — Direction hybride « Studio » (Attio × Linear × Miro), prototype interactif
+
+- **Décision de Faty (via l'arbitrage posté sur la PR #6)** : direction UX hybride inspirée d'Attio (cockpit, fiches, relations), de Linear (interaction, navigation, densité) et de Miro (canvas d'atelier), sans copie, en langage unifié ; garder la profondeur de la PR #5 et, de la PR #6, la distinction humain / suggestions, la hiérarchie et les visualisations utiles, sans imposer l'esthétique « dossier papier » ; prototype interactif avec preview et captures, puis PR de revue ; pas de fusion ni de production avant recette visuelle.
+- **Mise en œuvre** : prototype `/studio` (cockpit, fiche client, atelier sur canvas, analyse) sur la branche `design/hybride-attio-linear-miro`, feuille de style scopée `.hx`, état local persistant indépendant de l'application, règles de `lib/intelligence` réutilisées. Détail et tableau fonctionnel / simulé : `docs/design-hybride.md`.
+- **Options écartées** : bibliothèque de canvas externe (poids, dépendance) ; mode sombre (hors mandat) ; appliquer directement aux écrans existants (recette visuelle d'abord).
+- **Statut** : proposée, en recette (PR dédiée).

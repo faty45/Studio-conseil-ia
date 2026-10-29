@@ -18,6 +18,8 @@ Structure : `app/` (cockpit, bibliothèque, mission par phase `/mission/[id]/[ph
 
 Démonstration : « Charger la démonstration » sur le cockpit installe deux missions fictives complètes (ARDAN, boulangerie). Captures : `docs/captures/`.
 
+Prototype de direction hybride (Attio × Linear × Miro) : `/studio` (cockpit relationnel, fiche client, atelier sur canvas, analyse croisée), décrit dans `docs/design-hybride.md`. Données fictives, état local du navigateur, rien n'est appliqué à l'application tant que la direction n'est pas validée.
+
 ## Où lire
 
 1. `docs/vision-produit.md` : pour qui, quoi, principes.
